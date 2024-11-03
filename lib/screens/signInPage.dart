@@ -24,7 +24,12 @@ class _SignInState extends State<SignIn> {
         );
 
         if (response.user != null) {
-          Navigator.pushReplacementNamed(context, Homepage.routeName);
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+                builder: (context) =>
+                    Homepage()), // تأكد من أنك تستخدم HomePage هنا
+          );
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Login successful")),
           );
@@ -35,6 +40,7 @@ class _SignInState extends State<SignIn> {
           SnackBar(content: Text(e.message)),
         );
       } catch (e) {
+        debugPrint(e.toString());
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("An unexpected error occurred")),
         );
@@ -194,8 +200,10 @@ class _SignInState extends State<SignIn> {
                       SizedBox(height: 10),
                       GestureDetector(
                         onTap: () {
-                          Navigator.pushReplacementNamed(
-                              context, SignUp.routeName);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => SignUp()),
+                          );
                         },
                         child: Column(
                           children: [

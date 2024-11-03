@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import 'package:supabase_e_commerce/screens/HomePage.dart';
+import 'package:supabase_e_commerce/screens/SignInPage.dart'; // تأكد من استيراد صفحة تسجيل الدخول
 
 class SignUp extends StatefulWidget {
   static const String routeName = '/signUp';
@@ -21,6 +21,14 @@ class _SignUpState extends State<SignUp> {
 
   Future<void> register(BuildContext context) async {
     if (formKey.currentState?.validate() ?? false) {
+      if (_passwordController.text.trim() !=
+          _confirmPasswordController.text.trim()) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Passwords do not match")),
+        );
+        return;
+      }
+
       try {
         final response = await Supabase.instance.client.auth.signUp(
           email: _emailController.text.trim(),
@@ -37,8 +45,10 @@ class _SignUpState extends State<SignUp> {
 
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => Homepage()),
+            MaterialPageRoute(
+                builder: (context) => SignIn()), // تأكد من أن لديك هذه الصفحة
           );
+
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text("Registration successful")),
           );
@@ -49,9 +59,7 @@ class _SignUpState extends State<SignUp> {
           SnackBar(content: Text(e.message)),
         );
       } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("An unexpected error occurred")),
-        );
+        print(e.toString());
       }
     }
   }
