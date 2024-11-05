@@ -125,7 +125,6 @@ class _SignInState extends State<SignIn> {
                             fontWeight: FontWeight.bold,
                             color: Color(0xffB81736),
                           ),
-                          border: OutlineInputBorder(),
                         ),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
@@ -146,7 +145,6 @@ class _SignInState extends State<SignIn> {
                             fontWeight: FontWeight.bold,
                             color: Color(0xffB81736),
                           ),
-                          border: OutlineInputBorder(),
                         ),
                         obscureText: true,
                         validator: (value) {
